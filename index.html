@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@100..900&display=swap" rel="stylesheet">
+<title>Array Operations</title>
+<style>
+  body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #ecdfdf;
+  }
+  #display{
+    border: 1px solid #fff;
+    padding: 10px;
+    height: 150px;
+    font-size: 16px;
+    width: 300px;
+    border-radius: 10px;
+  }
+   #searchResult {
+    border: 1px solid #fff;
+    padding: 10px;
+    height: 110px;
+    font-size: 16px;
+    width: 300px;
+    border-radius: 10px;
+   }
+  .container{
+    display: flex;
+    flex-direction: column;
+    background: #f1efef;
+    width: 700px;
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  .con-dis{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* background: red; */
+    padding-right:40px ;
+  }
+  .con-dis input{
+    height: 30px;
+    width: 200px;
+    border-radius: 10px;
+    border: transparent;
+    padding-left: 15px;
+  }
+  .con-btn button{
+    color: #fff !important;
+    width: 100px;
+    height: 35px;
+    border-radius: 10px;
+    border: transparent;
+    cursor: pointer;
+  }
+  button:hover{
+    transform: scale(1.012333242442342342342424214);
+  }
+  textarea:focus{
+    outline: none;
+  }
+  input:focus {
+    outline: none;
+}
+  .con-inp{
+    display: flex;
+    gap: 5px;
+  }
+  .con-inp input{
+    height: 34px;
+    width: 200px;
+    border-radius: 10px;
+    border: transparent;
+    padding-left: 15px;
+  }
+  .con-inp button{
+    color: #fff !important;
+    width: 100px;
+    height: 35px;
+    border-radius: 10px;
+    border: transparent;
+    cursor: pointer;
+  }
+  .con-search{
+    display: flex;
+    flex-direction: column;
+    /* background-color: blue; */
+    justify-content: center; 
+    gap: 5px;
+    }
+
+    .con-dis-search{
+      display: flex;
+      gap: 20px;
+      padding-bottom: 10px;
+    }
+    /* responsive */
+    @media screen and (max-width: 768px){
+      .container{
+        width: 90%;
+      }
+      .con-dis{
+        padding-right: 0px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+      }
+      .con-dis input{
+        display: flex;
+        padding-right: 0px;
+      }
+      .con-btn{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+      }
+      #inputValue{
+        width: 320px;
+      }
+      .con-dis-search{
+        flex-direction: column;
+        gap: 20px;
+      }
+      .con-inp{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .con-inp input{
+        width: 300px;
+      }
+      .con-search{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="con-dis">
+      <label for="" style="  font-family: Noto Sans Khmer, sans-serif;">បញ្ចូលនៅទីនេះ <span style="color: red;">*</span></label>
+      <input type="text" id="inputValue" placeholder="Please input here...">
+      <div class="con-btn">
+        <button onclick="pushValue()" style="background: red;">Push</button>
+        <button onclick="popValue()" style="background: green;">Pop</button>
+        <button onclick="shiftValue()" style="background: blueviolet;">Shift</button>
+        <button onclick="unshiftValue()" style="background: palevioletred;">Unshift</button>
+        <button onclick="sortAsc()" style="background: rgb(12, 197, 197);">Sort Asc</button>
+        <button onclick="sortDesc()" style="background: rgb(209, 209, 3);">Sort Desc</button>
+      </div>
+    </div>
+    <div class="con-dis-search">
+      <textarea id="display" readonly>Display here..</textarea>
+      <div class="con-search">
+        <div class="con-inp">
+          <input type="text" id="searchValue" placeholder="Enter value to search" oninput="search()">
+          <button onclick="search()" style="background: rgb(112, 182, 8);">Search</button> 
+        </div>
+        <textarea id="searchResult" readonly></textarea>
+      </div>
+    </div>
+  </div>
+<script>
+  let array = [];
+
+  function pushValue() {
+    const value = document.getElementById("inputValue").value;
+    array.push(value);
+    displayArray();
+  }
+
+  function popValue() {
+    array.pop();
+    displayArray();
+  }
+
+  function shiftValue() {
+    array.shift();
+    displayArray();
+  }
+
+  function unshiftValue() {
+    const value = document.getElementById("inputValue").value;
+    array.unshift(value);
+    displayArray();
+  }
+
+  function sortAsc() {
+    array.sort((a, b) => a - b);//for sort number
+    //array.sort();//for sort string
+    displayArray();
+  }
+
+  function sortDesc() {
+    array.sort((a, b) => b - a);//for sort number
+    //array.sort();
+    //array.reverse();for sort string
+    displayArray();
+  }
+
+  function displayArray() {
+    const displayField = document.getElementById("display");
+    displayField.value = array.join(", ");
+  }
+
+  function search() {
+    const searchValue = document.getElementById("searchValue").value;
+    const searchResult = array.filter(item => item == searchValue);
+    const searchResultTextArea = document.getElementById("searchResult");
+
+    if (searchResult.length > 0) {
+      searchResultTextArea.value = searchResult.join(", ");
+    } else {
+      searchResultTextArea.value = "Underfined.";
+    }
+  }
+</script>
+</body>
+</html>
